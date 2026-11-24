@@ -10,6 +10,12 @@ import os
 
 EXCUSE = "The deadline was 9 AM. I read it as a suggestion, then a rumor, then history."
 
+# Bounty gate: /output/entry.txt must be one line, 1-160 characters.
+# Fail loudly in local runs if the line ever drifts past it.
+assert 1 <= len(EXCUSE) <= 160, f"excuse is {len(EXCUSE)} chars, gate allows 1-160"
+assert "\n" not in EXCUSE, "excuse must be a single line"
+assert EXCUSE == EXCUSE.strip(), "excuse must not have leading/trailing whitespace"
+
 
 def main() -> None:
     os.makedirs("/output", exist_ok=True)
